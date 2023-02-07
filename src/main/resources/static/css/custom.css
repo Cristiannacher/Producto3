@@ -1,0 +1,114 @@
+/* HEADER */
+.main-header .nav-item--orders a{
+    display: inline-block;
+    position: relative;
+}
+.main-header .nav-item--orders .nav-link__badge{
+    display: inline-flex;
+    align-items: center;
+    position: absolute;
+    height: 18px;
+    border-radius: 50%;
+    top: 1px;
+    right: -7px;
+    padding: 0 5px;
+    background-color: red;
+    line-height: 1;
+    font-size: 11px;
+    width: 18px;
+    text-align: center;
+    color: white;
+}
+.container .banner{
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    animation: banner 15s infinite linear;
+    background-image: url("../images/banner_1.jpg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 30em;
+    color: #FFF;
+    font-weight: bold;
+
+}
+
+@keyframes banner {
+    0% {
+        background-image: url('../images/banner_1.jpg');
+    }
+    33% {
+        background-image: url('../images/banner_1.jpg');
+    }
+
+
+    34% {
+        background-image: url('../images/banner_2.jpg');
+    }
+    66% {
+        background-image: url('../images/banner_2.jpg');
+    }
+
+
+    67% {
+        background-image: url('../images/banner_3.jpg');
+    }
+    100% {
+        background-image: url('../images/banner_3.jpg');
+    }
+}
+.main-header .nav-item--user,
+.main-header .nav-item--no-user{
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+.main-header .nav-item--no-user .nav-link {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.main-header .nav-item--no-user .nav-link:first-child {
+    border-right: 1px solid #ccc;
+}
+
+.main-header .nav-item--user .nav-link{
+    padding: 0 0 0 10px;
+    background-color: transparent;
+    box-shadow: none;
+    border: 0;
+    text-decoration: underline;
+}
+
+/** TABLES **/
+.table--with-actions .td-id{
+    width: 150px;
+}
+
+.table--with-actions tbody th:first-child,
+.table--with-actions thead th:first-child{
+    padding-left: 30px;
+}
+
+.table--with-actions thead th{
+    padding-bottom: 20px;
+}
+
+.table--with-actions tbody .td-actions,
+.table--with-actions thead .td-actions {
+    width: 250px;
+}
+
+.table--with-actions tbody .td-actions > div {
+    display: flex;
+}
+.table--with-actions tbody .td-actions .td-actions__wrapper .btn{
+    margin-right: 15px;
+}
+
+
+/** FORMS **/
+.login-form .invalid-feedback{
+    display: block;
+}

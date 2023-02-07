@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base_layout}">
+<div layout:fragment="content">
+    <div class="container my-4">
+        <div class="row grid-menu">
+            <div class="col-md-4 col-lg-3" th:each="menu : ${menus}">
+                <div class="card menuCard mb-3 mb-md-0">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#868e96"></rect></svg>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${menu.name}"></h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="d-flex justify-content-between">
+                            <span class="display-6"><span th:text="${menu.price}"></span>€</span>
+                            <a th:href="@{'/menu/' + ${menu.id}}" class="btn btn-primary d-flex align-items-center fw-bold px-4">Ver</a>
+                        </div>
+                    </div>
+                    <!--<div class="card-footer bg-transparent d-flex justify-content-between">
+                        <a href="#" class="btn btn-outline-danger border-0 me-2">Borrar</a>
+                        <a href="#" class="btn btn-outline-secondary border-0">Editar</a>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

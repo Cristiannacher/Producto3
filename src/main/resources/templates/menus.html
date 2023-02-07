@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base_layout}">
+<div layout:fragment="content">
+    <div class="container my-4">
+        <div class="table-responsive">
+            <table class="table table-striped align-middle table--with-actions">
+                <thead class="table-borderless">
+                    <tr>
+                        <th class="td-id" scope="col">Id</th>
+                        <th class="td-name" scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th class="td-actions" scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="menu : ${menus}">
+                        <th scope="row" th:text="${menu.id}"></th>
+                        <td th:text="${menu.name}"></td>
+                        <td th:text="${menu.price}" class="w-25"></td>
+                        <td class="td-actions">
+                            <div class="td-actions__wrapper">
+
+                                <a th:if="${session.role == 'admin'}"> <a th:href="@{'/menu/' + ${menu.id}}" role="button" class="btn btn-primary">
+                                    <i class="bi bi-pencil"></i>
+                                    <span>Editar</span>
+                                </a></a>
+
+                                <a th:if="${session.role == 'admin'}"><button type="button" class="btn btn-danger"
+                                        data-bs-toggle="modal"
+                                        th:data-name="${menu.name}"
+                                        th:data-id="${menu.id}"
+                                        data-bs-target="#deleteMenuModal"
+                                        data-type="deleteButton">
+                                    <i class="bi bi-trash3"></i>
+                                    <span>Borrar</span>
+                                </button></a>
+
+                                <a th:if="${session.role == 'user'}"> <a  role="button" class="btn btn-primary">
+                                    <span>Añadir</span>
+                                </a></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteMenuModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Borrar Menú</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro que deseas borrar el menú <span
+                            id="modalMenuName"></span>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger"
+                            data-type="deleteModalButton" data-id="" id="deleteModalButton">Borrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        window.onload = function() {
+            const deleteModal = document.getElementById('deleteMenuModal');
+            const deleteModalButton = document.getElementById('deleteModalButton');
+
+            const deleteButtons = document.querySelectorAll('[data-type="deleteButton"]');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const button = e.currentTarget.dataset;
+                    const buttonId = button.id;
+                    deleteModal.querySelector('#modalMenuName').innerHTML
+                        = button.name;
+                    deleteModal.querySelector('[data-type="deleteModalButton"]').dataset.id = buttonId;
+                })
+            })
+
+            deleteModalButton.addEventListener('click', async (e) => {
+                const menuId = e.currentTarget.dataset.id;
+                try{
+                    await fetch(`/api/menu/delete/${menuId}`, { method:
+                            'DELETE' });
+                    location.reload();
+                } catch (error) {
+                    console.log('error')
+                }
+            })
+
+        };
+    </script>
+</div>

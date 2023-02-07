@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base_layout}">
+<div layout:fragment="content">
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex mb-4 justify-content-between align-items-center">
+                    <h1>Detalle del menú<span th:text="${menu.name}"></span></h1>
+                    <button id="deleteMenuButton" class="btn btn-outline-danger"
+                            data-bs-toggle="modal"
+                            th:data-name="${menu.name}"
+                            th:data-id="${menu.id}"
+                            data-bs-target="#deleteMenuModal"
+                            data-type="deleteButton">Borrar menú</button>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#868e96"></rect></svg>
+                    </div>
+                    <div class="col-md-8 ps-3">
+                        <form action="#" th:action="@{/menu/update/{id}(id=${menu.id})}" th:object="${menu}"
+                              method="post">
+                            <div class="mb-3">
+                                <label for="menuName" class="form-label">Nombre</label>
+                                <input th:field="*{name}" type="text"
+                                       class="form-control" id="menuName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="menuPrice" class="form-label">Precio</label>
+                                <input type="text" class="form-control" id="menuPrice"
+                                       th:field="*{price}" pattern="^[0-9]+([.][0-9]*)?|[.][0-9]+$">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg px-4">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteMenuModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Borrar Menú</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro que deseas borrar el menú <span
+                            id="modalMenuName"></span>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger"
+                            data-type="deleteModalButton" data-id="" id="deleteModalButton">Borrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        window.onload = function() {
+            const deleteModal = document.getElementById('deleteMenuModal');
+            const deleteModalButton = document.getElementById('deleteModalButton');
+
+            const deleteButtons = document.querySelectorAll('[data-type="deleteButton"]');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const button = e.currentTarget.dataset;
+                    const buttonId = button.id;
+                    deleteModal.querySelector('#modalMenuName').innerHTML
+                        = button.name;
+                    deleteModal.querySelector('[data-type="deleteModalButton"]').dataset.id = buttonId;
+                })
+            })
+
+            deleteModalButton.addEventListener('click', async (e) => {
+                const menuId = e.currentTarget.dataset.id;
+                try{
+                    await fetch(`/api/menu/delete/${menuId}`, { method:
+                            'DELETE' });
+                    window.location.assign("/menus")
+                } catch (error) {
+                    console.log('error')
+                }
+            })
+
+        };
+    </script>
+</div>

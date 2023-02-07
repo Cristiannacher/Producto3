@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base_layout}">
+<head>
+    <title>Spring Security Example </title>
+</head>
+<body>
+<div class="container my-4" layout:fragment="content">
+    <div class="col-xs-12 col-md-5 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title mb-0"><h1 class="fs-4 mb-0">Registrarse</h1></div>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/auth/registro}" method="post" class="needs-validation">
+                    <div th:object="${usuario}">
+                        <div class="mb-3">
+                            <label for="nombre" class="col-form-label">Nombre</label>
+                            <input id="nombre" class="form-control" type="text" th:field="*{nombre}" required/>
+                            <div class="invalid-feedback">Este campo no puede estar vacío</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="col-form-label">Nombre usuario</label>
+                            <input id="username" class="form-control" type="text" th:field="*{username}"/>
+                            <div class="invalid-feedback">Este campo no puede estar vacío</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="col-form-label">Contraseña</label>
+                            <input id="password" type="password" name="password" class="form-control"/>
+                            <div class="invalid-feedback">Este campo no puede estar vacío</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="col-form-label">E-mail</label>
+                            <input class="form-control" id="email" type="email" th:field="*{email}"/>
+                            <div class="invalid-feedback">Campo incorrecto</div>
+                        </div>
+                    </div>
+                    <input th:if="${session.role != 'admin'}" type="hidden" name="role" value="1" />
+                    <div class="mb-3" th:if="${session.role == 'admin'}" >
+                        <label for="role" class="col-form-label">Role</label>
+                        <select id="role"  class="form-select" name="role"
+                                aria-label="Default select example" th:object="${roles}">
+                            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-lg" type="submit">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

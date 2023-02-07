@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base_layout}">
+<div layout:fragment="content">
+    <div class="container my-4">
+        <div class="row grid-menu">
+            <div class="col-md-4 col-lg-3" th:each="product : ${product}">
+                <div class="card menuCard mb-3">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#868e96"></rect></svg>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.name}"></h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="d-flex justify-content-between">
+                            <span class="display-6"><span th:text="${product.price}"></span>€</span>
+                        </div>
+
+                        <a th:if="${session.role == 'admin'}"> <a th:href="@{'/product/' + ${product.id}}" role="button" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i>
+                            <span>Editar</span>
+                        </a></a>
+
+                        <a th:if="${session.role == 'admin'}"><button type="button" class="btn btn-danger"
+                                data-bs-toggle="modal"
+                                th:data-name="${product.name}"
+                                th:data-id="${product.id}"
+                                data-bs-target="#deleteMenuModal"
+                                data-type="deleteButton">
+                            <i class="bi bi-trash3"></i>
+                            <span>Borrar</span>
+                        </button></a>
+
+                        <a th:if="${session.role == 'user'}"> <a  role="button" class="btn btn-primary">
+                            <span>Añadir</span>
+                        </a></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
