@@ -52,31 +52,33 @@ public class Seeds {
         admin.getRolesAssociated().addAll((List.of(adminRole)));
         usuarioRepository.save(admin);
 
-        Menu menuLibanes = new Menu("Libanes", 30.5);
-        Menu menuVeggie = new Menu("Veggie", 20);
-        Menu menuBurguer = new Menu("Libanes", 25);
-        menuRepository.save(menuLibanes);
-        menuRepository.save(menuVeggie);
-        menuRepository.save(menuBurguer);
+        Menu menuNike = new Menu("Nike", 30.5);
+        Menu menuAdidas = new Menu("Adidas", 20);
+        Menu menuJordan = new Menu("Jordan", 25);
+        menuRepository.save(menuNike);
+        menuRepository.save(menuAdidas);
+        menuRepository.save(menuJordan);
 
-        Product productPollo = new Product("Pollo",5.00);
-        Product productSeitan = new Product("Seitan",7.00);
-        Product productTofu = new Product("Tofu",6.50);
-        Product productTernera = new Product("Ternera",5.50);
-        Product productSetas = new Product("Setas",2.00);
-        productRepository.save(productPollo);
-        productRepository.save(productSeitan);
-        productRepository.save(productTofu);
-        productRepository.save(productTernera);
-        productRepository.save(productSetas);
+        Product productAdidas1 = new Product("Adidas Superstars",123.00);
+        Product productAdidas2 = new Product("Adidas Yeezy",170.00);
+        Product productJordan1 = new Product("Air Jordan Retro High",136.50);
+        Product productJordan2 = new Product("Air Jordan Retro Military",150.50);
+        Product productNike1 = new Product("Nike Classic",200.00);
+        Product productNike2 = new Product("Nike Hot Step",145.00);
+        productRepository.save(productAdidas1);
+        productRepository.save(productAdidas2);
+        productRepository.save(productJordan1);
+        productRepository.save(productJordan2);
+        productRepository.save(productNike1);
+        productRepository.save(productNike2);
 
-        productPollo.getMenusAssociated().addAll(List.of(menuVeggie, menuBurguer));
-        productRepository.save(productPollo);
+        productAdidas1.getMenusAssociated().addAll(List.of(menuAdidas, menuJordan));
+        productRepository.save(productAdidas1);
 
-        productSetas.getMenusAssociated().addAll(List.of(menuLibanes, menuVeggie, menuBurguer));
-        productRepository.save(productSetas);
+        productNike1.getMenusAssociated().addAll(List.of(menuNike, menuAdidas, menuJordan));
+        productRepository.save(productNike1);
 
-        productTernera.getMenusAssociated().addAll(List.of(menuBurguer));
-        productRepository.save(productTernera);
+        productJordan2.getMenusAssociated().addAll(List.of(menuJordan));
+        productRepository.save(productJordan2);
     }
 }

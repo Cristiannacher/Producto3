@@ -29,10 +29,10 @@ public class ProductController {
     private RoleService roleService;
 
     @GetMapping("/product")
-    public String products(Model model, Authentication auth, HttpSession session){
+    public String products(Model model, Authentication auth, HttpSession session) {
         this.checkSession(auth, session,
                 userService, roleService);
-        model.addAttribute("product",productService.findAll());
+        model.addAttribute("product", productService.findAll());
         model.addAttribute("currentPage", "product");
         return "product";
     }
@@ -43,7 +43,7 @@ public class ProductController {
                 userService, roleService);
         Optional<Product> product =
                 Optional.ofNullable(productService.findById(id).orElseThrow(() -> new Exception("Product" + id + " not found")));
-        if(product.isPresent()) {
+        if (product.isPresent()) {
             model.addAttribute("product", product.get());
             model.addAttribute("currentPage", "product");
         }
@@ -57,7 +57,7 @@ public class ProductController {
                 userService, roleService);
         Optional<Product> product =
                 Optional.ofNullable(productService.findById(id).orElseThrow(() -> new Exception("Product" + id + " not found")));
-        if(product.isPresent()){
+        if (product.isPresent()) {
             product.get().setName(productDetails.getName());
             product.get().setPrice(productDetails.getPrice());
             productService.update(product.get());
@@ -82,7 +82,7 @@ public class ProductController {
 
     private void checkSession(Authentication auth, HttpSession session,
                               IUsuarioService userService,
-                              RoleService roleService){
+                              RoleService roleService) {
         CheckSession currentSession = new CheckSession(auth, session,
                 userService, roleService);
         currentSession.validate();
