@@ -60,11 +60,11 @@ public class Seeds {
         menuRepository.save(menuJordan);
 
         Product productAdidas1 = new Product("Adidas Superstars",123.00);
-        Product productAdidas2 = new Product("Adidas Yeezy",170.00);
-        Product productJordan1 = new Product("Air Jordan Retro High",136.50);
-        Product productJordan2 = new Product("Air Jordan Retro Military",150.50);
-        Product productNike1 = new Product("Nike Classic",200.00);
-        Product productNike2 = new Product("Nike Hot Step",145.00);
+        Product productAdidas2 = new Product("Adidas Yeezy Boost 350 V2",170.00);
+        Product productJordan1 = new Product("Air Jordan 1 Retro High",136.50);
+        Product productJordan2 = new Product("Air Jordan 4 Retro Military",150.50);
+        Product productNike1 = new Product("Nike Cortez Classic",200.00);
+        Product productNike2 = new Product("Nike Hot Step Terra Nocta Black",225.00);
         productRepository.save(productAdidas1);
         productRepository.save(productAdidas2);
         productRepository.save(productJordan1);
