@@ -80,6 +80,13 @@ public class ProductController {
         return "redirect:/product";
     }
 
+    @GetMapping("/product/delete/{id}")
+    public String deleteProduct(@PathVariable("id") Long id) {
+        productService.delete(id);
+        return "redirect:/product";
+    }
+
+
     private void checkSession(Authentication auth, HttpSession session,
                               IUsuarioService userService,
                               RoleService roleService) {

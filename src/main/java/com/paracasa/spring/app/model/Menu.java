@@ -1,6 +1,5 @@
 package com.paracasa.spring.app.model;
 
-
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -9,13 +8,20 @@ import java.util.Set;
 @Table(name = "Menu")
 public class Menu {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private double price;
 
-    @ManyToMany(mappedBy = "menusAssociated", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "menu_product",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> productsAssociated = new LinkedHashSet<>();
 
     public Menu(String name, double price) {

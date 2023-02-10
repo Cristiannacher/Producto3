@@ -56,6 +56,8 @@ public class MenuController {
         return "redirect:/menu/" + id;
     }
 
+
+
     @GetMapping("/menu/create")
     public String createMenu(Model model, Authentication auth, HttpSession session) {
         this.checkSession(auth, session,
@@ -68,8 +70,24 @@ public class MenuController {
     @PostMapping("/menu/save")
     public String newMenu(Model model, @ModelAttribute("menu") Menu menu) {
         menuService.create(menu);
-        return "redirect:/";
+        return "redirect:/menus";
     }
+
+//    @DeleteMapping("/menu/delete/{id}")
+//    public String deleteMenu(@PathVariable("id") Long id) throws Exception {
+//        Optional<Menu> menu = Optional.ofNullable(menuService.findById(id).orElseThrow(() -> new Exception("Menu" + id + " not found")));
+//        if(menu.isPresent()){
+//            menuService.delete(id);
+//        }
+//        return "redirect:/menus";
+//    }
+
+    @GetMapping("/menu/delete/{id}")
+    public String deleteMenu(@PathVariable("id") Long id) {
+        menuService.delete(id);
+        return "redirect:/menus";
+    }
+
 
     private void checkSession(Authentication auth, HttpSession session,
                               IUsuarioService userService,
