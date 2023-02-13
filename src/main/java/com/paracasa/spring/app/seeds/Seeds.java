@@ -72,13 +72,19 @@ public class Seeds {
         productRepository.save(productNike1);
         productRepository.save(productNike2);
 
-        productAdidas1.getMenusAssociated().addAll(List.of(menuAdidas, menuJordan));
+        productAdidas1.getMenusAssociated().add(menuAdidas);
         productRepository.save(productAdidas1);
+        productAdidas1.getMenusAssociated().add(menuAdidas);
+        productRepository.save(productAdidas2);
 
-        productNike1.getMenusAssociated().addAll(List.of(menuNike, menuAdidas, menuJordan));
+        productNike1.getMenusAssociated().add(menuNike);
         productRepository.save(productNike1);
+        productNike1.getMenusAssociated().add(menuNike);
+        productRepository.save(productNike2);
 
-        productJordan2.getMenusAssociated().addAll(List.of(menuJordan));
+        productJordan2.getMenusAssociated().add(menuJordan);
+        productRepository.save(productJordan1);
+        productJordan2.getMenusAssociated().add(menuJordan);
         productRepository.save(productJordan2);
     }
 }
