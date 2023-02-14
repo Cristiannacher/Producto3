@@ -14,6 +14,10 @@ public class Product {
     private String name;
     private double price;
 
+    private String image;
+
+
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "menu_products",
             joinColumns = {
@@ -55,6 +59,14 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Set<Menu> getMenusAssociated() {

@@ -36,18 +36,23 @@ public class Seeds {
 
     public void generateSeeds(){
         Role userRole = new Role("user");
+        Role staffRole = new Role("staff");
         Role adminRole = new Role("admin");
         roleRepository.save(userRole);
+        roleRepository.save(staffRole);
         roleRepository.save(adminRole);
 
-        Usuario user = new Usuario("userTest", "test@test.com",
-                "user","1234");
+        Usuario user = new Usuario("userTest", "test@test.com", "user","1234");
         usuarioService.registrar(user);
         user.getRolesAssociated().addAll((List.of(userRole)));
         usuarioRepository.save(user);
 
-        Usuario admin = new Usuario("adminTest", "test@test.com",
-                "admin","1234");
+        Usuario staff = new Usuario("employeeTest", "test@test.com", "employee","1234");
+        usuarioService.registrar(staff);
+        staff.getRolesAssociated().addAll((List.of(staffRole)));
+        usuarioRepository.save(staff);
+
+        Usuario admin = new Usuario("adminTest", "test@test.com", "admin","1234");
         usuarioService.registrar(admin);
         admin.getRolesAssociated().addAll((List.of(adminRole)));
         usuarioRepository.save(admin);
@@ -62,7 +67,7 @@ public class Seeds {
         Product productAdidas1 = new Product("Adidas Superstars",123.00);
         Product productAdidas2 = new Product("Adidas Yeezy Boost 350 V2",170.00);
         Product productJordan1 = new Product("Air Jordan 1 Retro High",136.50);
-        Product productJordan2 = new Product("Air Jordan 4 Retro Military",150.50);
+        Product productJordan2 = new Product("Air Jordan 4 Retro Military",275.50);
         Product productNike1 = new Product("Nike Cortez Classic",200.00);
         Product productNike2 = new Product("Nike Hot Step Terra Nocta Black",225.00);
         productRepository.save(productAdidas1);
