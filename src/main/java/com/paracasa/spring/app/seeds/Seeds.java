@@ -42,20 +42,17 @@ public class Seeds {
         roleRepository.save(staffRole);
         roleRepository.save(adminRole);
 
-        Usuario user = new Usuario("userTest", "test@test.com",
-                "user","1234");
+        Usuario user = new Usuario("userTest", "test@test.com", "user","1234");
         usuarioService.registrar(user);
         user.getRolesAssociated().addAll((List.of(userRole)));
         usuarioRepository.save(user);
 
-        Usuario staff = new Usuario("staffTest", "test@test.com",
-                "staff","1234");
+        Usuario staff = new Usuario("employeeTest", "test@test.com", "employee","1234");
         usuarioService.registrar(staff);
-        user.getRolesAssociated().addAll((List.of(staffRole)));
+        staff.getRolesAssociated().addAll((List.of(staffRole)));
         usuarioRepository.save(staff);
 
-        Usuario admin = new Usuario("adminTest", "test@test.com",
-                "admin","1234");
+        Usuario admin = new Usuario("adminTest", "test@test.com", "admin","1234");
         usuarioService.registrar(admin);
         admin.getRolesAssociated().addAll((List.of(adminRole)));
         usuarioRepository.save(admin);

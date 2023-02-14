@@ -27,8 +27,6 @@ public class LoginController {
     private IUsuarioService usuarioService;
     @Autowired
     private RoleService roleService;
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
     @GetMapping("/auth/login")
     public String login (Model model) {
@@ -59,7 +57,6 @@ public class LoginController {
             if(selectedRole.isPresent()){
                 usuarioService.registrar(usuario);
                 usuario.getRolesAssociated().addAll((List.of(selectedRole.get())));
-                usuarioRepository.save(usuario);
             }
             System.out.println("selectedRole: " + selectedRole.get().getName());
             System.out.println("usuario: " + usuario.getNombre());
