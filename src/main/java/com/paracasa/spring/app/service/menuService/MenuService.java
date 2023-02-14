@@ -1,12 +1,14 @@
 package com.paracasa.spring.app.service.menuService;
 
 import com.paracasa.spring.app.model.Menu;
+import com.paracasa.spring.app.model.Product;
 import com.paracasa.spring.app.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class MenuService implements IMenuService {
@@ -38,7 +40,10 @@ public class MenuService implements IMenuService {
     @Override
     public void delete(Long id) {
         Optional<Menu> menu = menuRepository.findById(id);
-        System.out.println(menu);
+        Set<Product> products = menu.get().getProducts();
+        for(Product product : products) {
+            product.getMenusAssociated().remove(menu.get());
+        }
         menuRepository.deleteById(id);
     }
 }

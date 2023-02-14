@@ -1,28 +1,29 @@
 package com.paracasa.spring.app.model;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Menu")
+@Table (name = "Menu")
 public class Menu {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
     private double price;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "menu_product",
-            joinColumns = @JoinColumn(name = "menu_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> productsAssociated = new LinkedHashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "menu_products",
+            joinColumns = {
+                    @JoinColumn(name = "menu_id", referencedColumnName =
+                            "id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "product_id", referencedColumnName = "id",
+                            nullable = false, updatable = false)})
+    private Set<Product> products = new HashSet<>();
 
     public Menu(String name, double price) {
         this.setName(name);
@@ -56,11 +57,11 @@ public class Menu {
         this.price = price;
     }
 
-    public Set<Product> getProductsAssociated() {
-        return productsAssociated;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setProductsAssociated(Set<Product> productsAssociated) {
-        this.productsAssociated = productsAssociated;
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }
