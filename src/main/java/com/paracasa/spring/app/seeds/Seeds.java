@@ -37,6 +37,7 @@ public class Seeds {
     public void generateSeeds(){
         Role userRole = new Role("user");
         Role adminRole = new Role("admin");
+        Role staffRole = new Role("staff");
         roleRepository.save(userRole);
         roleRepository.save(adminRole);
 
@@ -45,6 +46,12 @@ public class Seeds {
         usuarioService.registrar(user);
         user.getRolesAssociated().addAll((List.of(userRole)));
         usuarioRepository.save(user);
+
+        Usuario staff = new Usuario("staffTest", "test@test.com",
+                "staff","1234");
+        usuarioService.registrar(staff);
+        user.getRolesAssociated().addAll((List.of(staffRole)));
+        usuarioRepository.save(staff);
 
         Usuario admin = new Usuario("adminTest", "test@test.com",
                 "admin","1234");
