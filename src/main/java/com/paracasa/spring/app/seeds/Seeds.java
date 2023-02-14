@@ -52,9 +52,9 @@ public class Seeds {
         admin.getRolesAssociated().addAll((List.of(adminRole)));
         usuarioRepository.save(admin);
 
-        Menu menuNike = new Menu("Nike", 30.5);
-        Menu menuAdidas = new Menu("Adidas", 20);
-        Menu menuJordan = new Menu("Jordan", 25);
+        Menu menuNike = new Menu("Nike", 4.3);
+        Menu menuAdidas = new Menu("Adidas", 3.8);
+        Menu menuJordan = new Menu("Jordan", 4.7);
         menuRepository.save(menuNike);
         menuRepository.save(menuAdidas);
         menuRepository.save(menuJordan);
