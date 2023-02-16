@@ -15,8 +15,10 @@ public class Usuario {
     @NotBlank
     private String nombre;
     @NotBlank
+    @Column(unique = true)
     private String email;
     @NotBlank
+    @Column(unique = true)
     private String username;
     @NotBlank
     private String password;
