@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base_layout}">
@@ -13,6 +13,9 @@
                 <div class="card-title mb-0"><h1 class="fs-4 mb-0">Registrarse</h1></div>
             </div>
             <div class="card-body">
+                <div th:if="${error}" class="alert alert-danger" role="alert">
+                    <p th:text="${error}"></p>
+                </div>
                 <form th:action="@{/auth/registro}" method="post" class="needs-validation">
                     <div th:object="${usuario}">
                         <div class="mb-3">

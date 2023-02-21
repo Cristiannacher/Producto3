@@ -56,6 +56,12 @@ public class LoginController {
             return "redirect:/auth/registro";
         } else {
             Optional<Role> selectedRole = roleService.findById(Long.parseLong(roleId));
+            Optional<Usuario> usuarioExistente = Optional.ofNullable(usuarioRepository.findByUsername(usuario.getUsername()));
+            if (usuarioExistente.isPresent()) {
+                model.addAttribute("error", "El usuario ya existe");
+                model.addAttribute("roles", roleService.findAll());
+                return "register";
+            }
             if(selectedRole.isPresent()){
                 usuarioService.registrar(usuario);
                 usuario.getRolesAssociated().addAll((List.of(selectedRole.get())));

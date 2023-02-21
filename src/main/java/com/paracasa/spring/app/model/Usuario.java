@@ -15,7 +15,7 @@ public class Usuario {
     @NotBlank
     private String nombre;
     @NotBlank
-    @Column(unique = true)
+    @Column
     private String email;
     @NotBlank
     @Column(unique = true)
